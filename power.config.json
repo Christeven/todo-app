@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "appId": "92b3a52a-2c7b-42c4-8b6a-5af2a2bcd8ef",
+  "appDisplayName": "Todo App Test",
+  "region": "prod",
+  "environmentId": "a6db046e-c8b7-ee56-864e-bcc95b28f55d",
+  "description": "",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "localAppUrl": "http://localhost:3000",
+  "logoPath": "Default",
+  "connectionReferences": {},
+  "databaseReferences": {}
+}
