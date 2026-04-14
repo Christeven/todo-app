@@ -171,7 +171,7 @@ function App() {
                     type="text"
                     value={editState.text}
                     onChange={e => setEditState({ ...editState, text: e.target.value })}
-                    onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') cancelEdit() }}
+                    onKeyDown={e => { if (e.key === 'Enter' && editState.assignee.trim()) saveEdit(); if (e.key === 'Escape') cancelEdit() }}
                     autoFocus
                     className="input-text"
                   />
@@ -191,8 +191,8 @@ function App() {
                         list="assignee-list"
                         value={editState.assignee}
                         onChange={e => setEditState({ ...editState, assignee: e.target.value })}
-                        className="input-text"
-                        style={{ marginBottom: 0, width: 'auto' }}
+                        onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') cancelEdit() }}
+                        className="input-text assignee-edit-input"
                       />
                     </label>
                     <button className="save" onClick={saveEdit} disabled={!editState.text.trim() || !editState.assignee.trim()}>✓ Enregistrer</button>

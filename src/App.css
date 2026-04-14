@@ -280,3 +280,8 @@ button.cancel {
   color: #888;
   text-align: right;
 }
+
+.assignee-edit-input {
+  margin-bottom: 0;
+  width: auto;
+}
