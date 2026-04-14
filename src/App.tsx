@@ -7,12 +7,14 @@ interface Todo {
   done: boolean
   startDate: string
   endDate: string
+  assignee: string
 }
 
 interface EditState {
   text: string
   startDate: string
   endDate: string
+  assignee: string
 }
 
 type MenuView = 'all' | 'pending' | 'completed'
@@ -33,22 +35,25 @@ function App() {
   const [input, setValue] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
+  const [assignee, setAssignee] = useState('')
   const [editId, setEditId] = useState<number | null>(null)
-  const [editState, setEditState] = useState<EditState>({ text: '', startDate: '', endDate: '' })
+  const [editState, setEditState] = useState<EditState>({ text: '', startDate: '', endDate: '', assignee: '' })
   const [view, setView] = useState<MenuView>('all')
 
   const addTodo = () => {
-    if (!input.trim()) return
+    if (!input.trim() || !assignee.trim()) return
     setTodos([...todos, {
       id: Date.now(),
       text: input.trim(),
       done: false,
       startDate,
       endDate,
+      assignee: assignee.trim(),
     }])
     setValue('')
     setStartDate('')
     setEndDate('')
+    setAssignee('')
   }
 
   const toggleTodo = (id: number) => {
@@ -62,12 +67,12 @@ function App() {
 
   const startEdit = (todo: Todo) => {
     setEditId(todo.id)
-    setEditState({ text: todo.text, startDate: todo.startDate, endDate: todo.endDate })
+    setEditState({ text: todo.text, startDate: todo.startDate, endDate: todo.endDate, assignee: todo.assignee })
   }
 
   const saveEdit = () => {
-    if (!editState.text.trim()) return
-    setTodos(todos.map(t => t.id === editId ? { ...t, ...editState, text: editState.text.trim() } : t))
+    if (!editState.text.trim() || !editState.assignee.trim()) return
+    setTodos(todos.map(t => t.id === editId ? { ...t, ...editState, text: editState.text.trim(), assignee: editState.assignee.trim() } : t))
     setEditId(null)
   }
 
@@ -84,6 +89,8 @@ function App() {
     pending: todos.filter(t => !t.done).length,
     completed: todos.filter(t => t.done).length,
   }
+
+  const assigneeSuggestions = Array.from(new Set(todos.map(t => t.assignee).filter(Boolean)))
 
   return (
     <div className="layout">
