@@ -116,14 +116,28 @@ function App() {
           {view === 'completed' && 'Tâches complétées'}
         </h1>
 
+        <datalist id="assignee-list">
+          {assigneeSuggestions.map(name => (
+            <option key={name} value={name} />
+          ))}
+        </datalist>
+
         {view !== 'completed' && (
           <div className="form-add">
             <input
               type="text"
               value={input}
               onChange={e => setValue(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && addTodo()}
+              onKeyDown={e => e.key === 'Enter' && input.trim() && assignee.trim() && addTodo()}
               placeholder="Nouvelle tâche..."
+              className="input-text"
+            />
+            <input
+              type="text"
+              list="assignee-list"
+              value={assignee}
+              onChange={e => setAssignee(e.target.value)}
+              placeholder="Assigné à..."
               className="input-text"
             />
             <div className="date-row">
@@ -135,7 +149,7 @@ function App() {
                 Fin
                 <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
               </label>
-              <button onClick={addTodo}>Ajouter</button>
+              <button onClick={addTodo} disabled={!input.trim() || !assignee.trim()}>Ajouter</button>
             </div>
           </div>
         )}
