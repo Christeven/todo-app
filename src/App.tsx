@@ -137,6 +137,7 @@ function App() {
               list="assignee-list"
               value={assignee}
               onChange={e => setAssignee(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && input.trim() && assignee.trim() && addTodo()}
               placeholder="Assigné à..."
               className="input-text"
             />
