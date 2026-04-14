@@ -184,7 +184,18 @@ function App() {
                       Fin
                       <input type="date" value={editState.endDate} onChange={e => setEditState({ ...editState, endDate: e.target.value })} />
                     </label>
-                    <button className="save" onClick={saveEdit}>✓ Enregistrer</button>
+                    <label>
+                      Assigné à
+                      <input
+                        type="text"
+                        list="assignee-list"
+                        value={editState.assignee}
+                        onChange={e => setEditState({ ...editState, assignee: e.target.value })}
+                        className="input-text"
+                        style={{ marginBottom: 0, width: 'auto' }}
+                      />
+                    </label>
+                    <button className="save" onClick={saveEdit} disabled={!editState.text.trim() || !editState.assignee.trim()}>✓ Enregistrer</button>
                     <button className="cancel" onClick={cancelEdit}>Annuler</button>
                   </div>
                 </div>
@@ -200,6 +211,7 @@ function App() {
                           {isOverdue(todo) && ' — En retard'}
                         </span>
                       )}
+                      {todo.assignee && <span>👤 {todo.assignee}</span>}
                     </div>
                   </div>
                   <div className="actions">
