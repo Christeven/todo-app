@@ -285,3 +285,8 @@ button.cancel {
   margin-bottom: 0;
   width: auto;
 }
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
